@@ -1,7 +1,6 @@
 import run from "aocrunner";
 
 const part1 = (rawInput: string) => {
-
   const regex = /mul\((\d+),(\d+)\)/g;
   const matches = [...rawInput.matchAll(regex)];
 
@@ -27,7 +26,7 @@ const part2 = (rawInput: string) => {
   const donts = [...rawInput.matchAll(regexDonts)];
 
   const merged = matches.concat(dos).concat(donts);
-  merged.sort((a, b) => a.index - b.index)
+  merged.sort((a, b) => a.index - b.index);
 
   // We now have our do()'s, don't()'s and mul()'s in the correct order.
   // Notice that the do's and don't are not nested, so its just a linear loop over all the matches

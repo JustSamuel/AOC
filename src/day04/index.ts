@@ -90,7 +90,9 @@ const part1 = (rawInput: string) => {
   const regex = /XMAS/g;
   const reverseRegex = /SAMX/gi;
 
-  const strings = input.horizontal.concat(input.vertical).concat(input.diagonal);
+  const strings = input.horizontal
+    .concat(input.vertical)
+    .concat(input.diagonal);
   strings.forEach((row) => {
     const matches = row.match(regex);
     const count = matches ? matches.length : 0;
@@ -99,7 +101,7 @@ const part1 = (rawInput: string) => {
     const reverseMatches = row.match(reverseRegex);
     const reverseCount = reverseMatches ? reverseMatches.length : 0;
     score += reverseCount;
-  })
+  });
 
   return score;
 };

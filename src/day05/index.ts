@@ -1,11 +1,12 @@
 import run from "aocrunner";
 
-
 interface Rules {
   [key: number]: Set<number>;
 }
 
-const parseInput = (rawInput: string): {after: Rules, before: Rules, pages: number[][]} => {
+const parseInput = (
+  rawInput: string,
+): { after: Rules; before: Rules; pages: number[][] } => {
   const rows = rawInput.split("\n");
   const rulesBefore: Rules = {};
   const rulesAfter: Rules = {};
@@ -30,20 +31,18 @@ const parseInput = (rawInput: string): {after: Rules, before: Rules, pages: numb
   }
 
   // console.info(rows);
-  return {after: rulesAfter, before: rulesBefore, pages: pag};
+  return { after: rulesAfter, before: rulesBefore, pages: pag };
 };
 
-
-function isValid(before: Rules, after: Rules,page: number[]) {
+function isValid(before: Rules, after: Rules, page: number[]) {
   for (let i = 0; i < page.length; i++) {
-    for (let j =  0; j < page.length; j++) {
+    for (let j = 0; j < page.length; j++) {
       if (i !== j) {
         if (before[page[i]] && j > i) {
           if (!before[page[i]].has(page[j])) {
-           return false;
+            return false;
           }
-        }
-        else if (after[page[j]] && i > j) {
+        } else if (after[page[j]] && i > j) {
           if (after[page[j]].has(page[i])) {
             return false;
           }
@@ -64,8 +63,8 @@ const part1 = (rawInput: string) => {
     const valid = isValid(input.before, input.after, page);
 
     if (valid) {
-        const middle = page[Math.floor(page.length / 2)];
-        score += middle;
+      const middle = page[Math.floor(page.length / 2)];
+      score += middle;
     } else {
       invalids.push(page);
     }
@@ -80,8 +79,6 @@ function sortPage(page: number[], before: Rules, after: Rules) {
   const localBefore: Record<string, Set<number>> = {};
 
   page.forEach((p) => {
-
-
     if (!before[p]) {
     } else {
       page.forEach((pp) => {
@@ -93,12 +90,12 @@ function sortPage(page: number[], before: Rules, after: Rules) {
           localBefore[pp] = localBefore[pp] || new Set<string>();
           localBefore[pp].add(p);
         }
-      })
+      });
     }
     if (!inDegree[p]) {
       inDegree[p] = 0;
     }
-  })
+  });
 
   const queue: string[] = [];
   for (const vertex of Object.keys(inDegree)) {
@@ -141,7 +138,7 @@ const part2 = (rawInput: string) => {
     const sorted = sortPage(p, input.before, input.after);
     const middle = Number(sorted[Math.floor(sorted.length / 2)]);
     score += middle;
-  })
+  });
 
   return score;
 };

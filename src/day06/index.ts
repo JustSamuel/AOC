@@ -5,7 +5,13 @@ interface Coord {
   y: number;
 }
 
-const parseInput = (rawInput: string): {grid: string[][], start: Coord, dirOfTravel: Record<string, Set<string>>} => {
+const parseInput = (
+  rawInput: string,
+): {
+  grid: string[][];
+  start: Coord;
+  dirOfTravel: Record<string, Set<string>>;
+} => {
   const grid: string[][] = [];
   const input = rawInput.split("\n");
   input.forEach((line) => {
@@ -23,7 +29,7 @@ const parseInput = (rawInput: string): {grid: string[][], start: Coord, dirOfTra
     }
   }
 
-  return {grid, start, dirOfTravel};
+  return { grid, start, dirOfTravel };
 };
 
 function findStart(grid: string[][]) {
@@ -31,7 +37,12 @@ function findStart(grid: string[][]) {
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
       const current = grid[i][j];
-      if (current === "<" || current === ">" || current === "^" || current === "v") {
+      if (
+        current === "<" ||
+        current === ">" ||
+        current === "^" ||
+        current === "v"
+      ) {
         start = { x: j, y: i };
         break;
       }
@@ -57,23 +68,28 @@ function turn(dir: string): string {
 function getNextCoord(grid: string[][], start: Coord, char: string) {
   switch (char) {
     case "^":
-      return {y: start.y - 1, x: start.x};
+      return { y: start.y - 1, x: start.x };
     case ">":
-      return {y: start.y, x: start.x + 1};
+      return { y: start.y, x: start.x + 1 };
       break;
     case "<":
-      return {y: start.y, x: start.x - 1};
+      return { y: start.y, x: start.x - 1 };
       break;
     case "v":
-      return {y: start.y + 1, x: start.x};
+      return { y: start.y + 1, x: start.x };
       break;
   }
-  return {x: 0, y: 0};
+  return { x: 0, y: 0 };
 }
 
 function nextInBounds(grid: string[][], start: Coord, char: string): boolean {
   const next = getNextCoord(grid, start, char);
-  return next.y >= 0 && next.y < grid.length && next.x >= 0 && next.x < grid[0].length;
+  return (
+    next.y >= 0 &&
+    next.y < grid.length &&
+    next.x >= 0 &&
+    next.x < grid[0].length
+  );
 }
 
 function toKey(x: number, y: number) {
@@ -83,7 +99,13 @@ function toKey(x: number, y: number) {
 let loopLocations = new Set<string>();
 let distinct = new Set<string>();
 
-function walk(grid: string[][], start: Coord, dirOfTravel: Record<string, Set<string>>, allowRecurse = true, part1 = false): boolean {
+function walk(
+  grid: string[][],
+  start: Coord,
+  dirOfTravel: Record<string, Set<string>>,
+  allowRecurse = true,
+  part1 = false,
+): boolean {
   let char = grid[start.y][start.x];
   let location = start;
 
@@ -101,7 +123,7 @@ function walk(grid: string[][], start: Coord, dirOfTravel: Record<string, Set<st
     const c = nextInBounds(grid, location, char);
     if (!c) return false;
 
-    if(part1) distinct.add(toKey(location.x, location.y));
+    if (part1) distinct.add(toKey(location.x, location.y));
 
     let next = getNextCoord(grid, location, char);
     const nextChar = grid[next.y][next.x];
@@ -117,10 +139,8 @@ function walk(grid: string[][], start: Coord, dirOfTravel: Record<string, Set<st
 
     if (allowRecurse) {
       if (
-        !(
-          next.x === start.x &&
-          next.y === start.y
-        ) && grid[next.y][next.x] !== "#"
+        !(next.x === start.x && next.y === start.y) &&
+        grid[next.y][next.x] !== "#"
       ) {
         const gridClone: string[][] = [];
         for (let i = 0; i < grid.length; i++) {
@@ -150,7 +170,6 @@ function walk(grid: string[][], start: Coord, dirOfTravel: Record<string, Set<st
       }
     }
 
-
     grid[next.y][next.x] = char;
     location = next;
   }
@@ -161,7 +180,7 @@ const part1 = (rawInput: string) => {
 
   walk(input.grid, input.start, input.dirOfTravel, false, true);
   return distinct.size + 1;
-}
+};
 
 const part2 = (rawInput: string) => {
   const input = parseInput(rawInput);
@@ -219,7 +238,7 @@ run({
         #^...
         .....
         `,
-        expected: 1
+        expected: 1,
       },
       {
         input: `
@@ -229,7 +248,7 @@ run({
         .#^...
         ......
         `,
-        expected: 3
+        expected: 3,
       },
       {
         input: `
@@ -239,7 +258,7 @@ run({
         .#^.#.
         ......
         `,
-        expected: 2
+        expected: 2,
       },
       {
         input: `
@@ -249,7 +268,7 @@ run({
         .#^...
         ....#.
         `,
-        expected: 1
+        expected: 1,
       },
       {
         input: `
@@ -260,8 +279,9 @@ run({
 ......#
 ......#
         `,
-        expected: 0
-      },{
+        expected: 0,
+      },
+      {
         input: `
         .#....
 .#....
@@ -269,7 +289,7 @@ run({
 .#^...
 ......
         `,
-        expected: 0
+        expected: 0,
       },
       {
         input: `
@@ -278,7 +298,7 @@ run({
         ................
         ...........#....
         ^...............`,
-        expected: 1
+        expected: 1,
       },
       {
         input: `
@@ -301,7 +321,7 @@ run({
         ................
         ...........#....
         ^...............`,
-        expected: 8
+        expected: 8,
       },
       {
         input: `
@@ -309,7 +329,7 @@ run({
         #....#
         #^....
         .#....`,
-        expected: 3
+        expected: 3,
       },
       {
         input: `
@@ -317,7 +337,7 @@ run({
         ...#
         ^...
         ..#.`,
-        expected: 0
+        expected: 0,
       },
       {
         input: `
@@ -326,12 +346,11 @@ run({
         .#..<
         ...#.
         ..#..`,
-        expected: 3
-      }
+        expected: 3,
+      },
     ],
 
     solution: part2,
-
   },
   trimTestInputs: true,
   onlyTests: false,

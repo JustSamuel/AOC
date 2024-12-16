@@ -12,10 +12,16 @@ const dirs = [
   [-1, 0],
 ];
 
-const isPerim = (x: number, y: number, grid: string[][], symbol: string): boolean => {
-  if (x < 0 || x > grid.length - 1 || y < 0 || y > grid[0].length - 1) return true
+const isPerim = (
+  x: number,
+  y: number,
+  grid: string[][],
+  symbol: string,
+): boolean => {
+  if (x < 0 || x > grid.length - 1 || y < 0 || y > grid[0].length - 1)
+    return true;
   return grid[x][y] !== symbol;
-}
+};
 
 function solve(rawInput: string, part1 = false): number {
   const grid = parseInput(rawInput);
@@ -25,16 +31,21 @@ function solve(rawInput: string, part1 = false): number {
 
   const isValid = (x: number, y: number, symbol: string): boolean => {
     return (
-        x >= 0 &&
-        y >= 0 &&
-        x < rows &&
-        y < cols &&
-        !visited[x][y] &&
-        grid[x][y] === symbol
+      x >= 0 &&
+      y >= 0 &&
+      x < rows &&
+      y < cols &&
+      !visited[x][y] &&
+      grid[x][y] === symbol
     );
   };
 
-  const dfs = (x: number, y: number, symbol: string, component: [number, number][]) => {
+  const dfs = (
+    x: number,
+    y: number,
+    symbol: string,
+    component: [number, number][],
+  ) => {
     const stack = [[x, y]];
     visited[x][y] = true;
     component.push([x, y]);
@@ -70,10 +81,9 @@ function solve(rawInput: string, part1 = false): number {
         const componentKeys = new Set<string>();
         component.forEach((c) => componentKeys.add(getKey(c)));
 
-
         for (const [x, y] of component) {
           for (const [dx, dy] of dirs) {
-            if(isPerim(x + dx, y + dy, grid, grid[i][j])) {
+            if (isPerim(x + dx, y + dy, grid, grid[i][j])) {
               perims.add([x, y]);
             }
           }
@@ -88,21 +98,21 @@ function solve(rawInput: string, part1 = false): number {
           for (let x = 0; x < rows; x++) {
             for (let y = 0; y < cols; y++) {
               if (!componentKeys.has(getKey([x, y]))) continue;
-              if (!componentKeys.has(getKey([x-1, y]))) {
-                if (!xwall[`${x-1},left`]) xwall[`${x-1},left`] = [];
-                xwall[`${x-1},left`].push(y);
+              if (!componentKeys.has(getKey([x - 1, y]))) {
+                if (!xwall[`${x - 1},left`]) xwall[`${x - 1},left`] = [];
+                xwall[`${x - 1},left`].push(y);
               }
-              if(!componentKeys.has(getKey([x+1, y]))) {
-                if (!xwall[`${x-1},right`]) xwall[`${x-1},right`] = [];
-                xwall[`${x-1},right`].push(y);
+              if (!componentKeys.has(getKey([x + 1, y]))) {
+                if (!xwall[`${x - 1},right`]) xwall[`${x - 1},right`] = [];
+                xwall[`${x - 1},right`].push(y);
               }
-              if(!componentKeys.has(getKey([x, y-1]))) {
-                if (!ywall[`${y-1},bottom`]) ywall[`${y-1},bottom`] = [];
-                ywall[`${y-1},bottom`].push(x);
+              if (!componentKeys.has(getKey([x, y - 1]))) {
+                if (!ywall[`${y - 1},bottom`]) ywall[`${y - 1},bottom`] = [];
+                ywall[`${y - 1},bottom`].push(x);
               }
-              if(!componentKeys.has(getKey([x, y+1]))) {
-                if (!ywall[`${y-1},top`]) ywall[`${y-1},top`] = [];
-                ywall[`${y-1},top`].push(x);
+              if (!componentKeys.has(getKey([x, y + 1]))) {
+                if (!ywall[`${y - 1},top`]) ywall[`${y - 1},top`] = [];
+                ywall[`${y - 1},top`].push(x);
               }
             }
           }

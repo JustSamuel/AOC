@@ -13,7 +13,6 @@ const parseInput = (rawInput: string): Stones => {
   return stoneCounts;
 };
 
-
 const stoneMemo: Map<string, string[]> = new Map();
 
 function handle(stone: string): string[] {
@@ -44,10 +43,7 @@ function blink(stones: Map<string, number>): Stones {
     const blinkedStones = handle(stone);
 
     for (const blinked of blinkedStones) {
-      newStones.set(
-        blinked,
-        (newStones.get(blinked) || 0) + count
-      );
+      newStones.set(blinked, (newStones.get(blinked) || 0) + count);
     }
   }
 

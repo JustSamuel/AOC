@@ -37,7 +37,7 @@ const parseInput = (rawInput: string) => {
         y: Number(prize_[1].split("=")[1]),
       },
     });
-  })
+  });
   return games;
 };
 
@@ -48,7 +48,7 @@ function determinant(matrix: number[][]) {
 function inverse(matrix: number[][]) {
   return [
     [matrix[1][1], -matrix[0][1]],
-    [-matrix[1][0], matrix[0][0]]
+    [-matrix[1][0], matrix[0][0]],
   ];
 }
 
@@ -57,10 +57,13 @@ const solve = (rawInput: string, part1: boolean) => {
   let s = 0;
   input.forEach((g) => {
     if (!part1) {
-      g.prize.x += 10000000000000
-      g.prize.y += 10000000000000
+      g.prize.x += 10000000000000;
+      g.prize.y += 10000000000000;
     }
-    const matrix = [[g.buttonA.x, g.buttonB.x], [g.buttonA.y, g.buttonB.y]];
+    const matrix = [
+      [g.buttonA.x, g.buttonB.x],
+      [g.buttonA.y, g.buttonB.y],
+    ];
     const det = determinant(matrix);
     if (det === 0) {
       return;
@@ -75,7 +78,7 @@ const solve = (rawInput: string, part1: boolean) => {
     }
   });
   return s;
-}
+};
 
 run({
   part1: {

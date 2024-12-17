@@ -32,7 +32,7 @@ const dirs = [
   [0, -1],
   [1, 0],
   [0, 1],
-  [-1, 0]
+  [-1, 0],
 ];
 
 const getScore = (grid: string[][], start: Coord, end: Coord) => {

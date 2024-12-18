@@ -58,6 +58,7 @@ const part1 = (rawInput: string) => {
 const part2 = (rawInput: string) => {
   const input = parseInput(rawInput);
   const size = 71;
+  // We know that 1024 works
   let left = 1024;
   let right = input.length
   let s = 0;

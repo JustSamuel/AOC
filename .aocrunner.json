@@ -253,7 +253,7 @@
         "solved": true,
         "result": "4,3,7,1,5,3,0,5,4",
         "attempts": [],
-        "time": 0.4439
+        "time": 1.0662
       },
       "part2": {
         "solved": false,
@@ -261,7 +261,7 @@
         "attempts": [
           "2251799813685248"
         ],
-        "time": 9.1913
+        "time": 15.5845
       }
     },
     {
@@ -269,13 +269,13 @@
         "solved": true,
         "result": "276",
         "attempts": [],
-        "time": 9.5256
+        "time": 10.0411
       },
       "part2": {
         "solved": true,
         "result": "60,37",
         "attempts": [],
-        "time": 20.5534
+        "time": 22.0303
       }
     },
     {

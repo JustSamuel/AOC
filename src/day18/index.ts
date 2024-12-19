@@ -1,25 +1,25 @@
 import run from "aocrunner";
 
 const parseInput = (rawInput: string) => {
-  return rawInput.split("\n").map(line => line.split(",").map(Number));
+  return rawInput.split("\n").map((line) => line.split(",").map(Number));
 };
 
 const dirs = [
   [0, 1],
   [1, 0],
   [0, -1],
-  [-1, 0]
+  [-1, 0],
 ];
 
 const getKey = (x: number, y: number) => `${x},${y}`;
 
 // Yet another, never seen before, BFS
 const bfs = (bytes: number[][], count: number, size: number): number => {
-  const grid = Array.from({ length: size }, () => Array(size).fill('.'));
+  const grid = Array.from({ length: size }, () => Array(size).fill("."));
 
   for (let i = 0; i < count && i < bytes.length; i++) {
     const [x, y] = bytes[i];
-    grid[y][x] = '#';
+    grid[y][x] = "#";
   }
 
   const queue = [[0, 0, 0]];
@@ -36,9 +36,12 @@ const bfs = (bytes: number[][], count: number, size: number): number => {
       const newX = x + dx;
       const newY = y + dy;
       if (
-          newX >= 0 && newX < size &&
-          newY >= 0 && newY < size &&
-          !visited.has(getKey(newX,newY)) && grid[newY][newX] === '.'
+        newX >= 0 &&
+        newX < size &&
+        newY >= 0 &&
+        newY < size &&
+        !visited.has(getKey(newX, newY)) &&
+        grid[newY][newX] === "."
       ) {
         visited.add(getKey(newX, newY));
         queue.push([newX, newY, dist + 1]);
@@ -60,7 +63,7 @@ const part2 = (rawInput: string) => {
   const size = 71;
   // We know that 1024 works
   let left = 1024;
-  let right = input.length
+  let right = input.length;
   let s = 0;
 
   // Finally a binary search this AoC <3
@@ -74,18 +77,16 @@ const part2 = (rawInput: string) => {
     }
   }
 
-  return input[s].join(',');
+  return input[s].join(",");
 };
 
 run({
   part1: {
-    tests: [
-    ],
+    tests: [],
     solution: part1,
   },
   part2: {
-    tests: [
-    ],
+    tests: [],
     solution: part2,
   },
   trimTestInputs: true,

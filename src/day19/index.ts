@@ -42,8 +42,8 @@ const part2 = (rawInput: string) => {
   const input = parseInput(rawInput);
   let s = 0;
   input.designs.forEach((design) => {
-    const options = canMakeDesign(input.towels, design)
-    s+= options;
+    const options = canMakeDesign(input.towels, design);
+    s += options;
   });
   return s;
 };

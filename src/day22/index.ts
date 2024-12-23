@@ -1,7 +1,7 @@
 import run from "aocrunner";
 
 const parseInput = (rawInput: string): bigint[] => {
-  return rawInput.split("\n").map(l => BigInt(parseInt(l)));
+  return rawInput.split("\n").map((l) => BigInt(parseInt(l)));
 };
 
 const mix = (secret: bigint, value: bigint): bigint => secret ^ value;
@@ -30,7 +30,7 @@ const part1 = (rawInput: string): string => {
 };
 
 const precompute = (secrets: bigint[], count: number): number[][] => {
-  return secrets.map(secret => {
+  return secrets.map((secret) => {
     const prices = [Number(secret % 10n)];
     for (let i = 0; i < count; i++) {
       secret = calculate(secret);
@@ -43,7 +43,7 @@ const precompute = (secrets: bigint[], count: number): number[][] => {
 const options = (priceArrays: number[][]): Set<string> => {
   const possibleSequences = new Set<string>();
 
-  priceArrays.forEach(prices => {
+  priceArrays.forEach((prices) => {
     let prevPrice = prices[0];
     const changeBuffer: number[] = [];
 
@@ -64,17 +64,21 @@ const options = (priceArrays: number[][]): Set<string> => {
   return possibleSequences;
 };
 
-const findSequence = (priceArrays: number[][], possibleSequences: Set<string>): { sequence: number[], bananas: number } => {
+const findSequence = (
+  priceArrays: number[][],
+  possibleSequences: Set<string>,
+): { sequence: number[]; bananas: number } => {
   let maxBananas = 0;
   let bestSequence: number[] = [];
   let i = 0;
   possibleSequences.forEach((sequenceString) => {
     i++;
-    if (i % 100 === 0) console.info(`Processing sequence ${i}/${possibleSequences.size}`);
+    if (i % 100 === 0)
+      console.info(`Processing sequence ${i}/${possibleSequences.size}`);
     const seq = sequenceString.split(",").map(Number);
     let totalBananas = 0;
 
-    priceArrays.forEach(prices => {
+    priceArrays.forEach((prices) => {
       let prevPrice = prices[0];
       const changeBuffer: number[] = [];
 
@@ -83,7 +87,10 @@ const findSequence = (priceArrays: number[][], possibleSequences: Set<string>): 
         changeBuffer.push(change);
         if (changeBuffer.length > seq.length) changeBuffer.shift();
 
-        if (changeBuffer.length === seq.length && changeBuffer.every((val, idx) => val === seq[idx])) {
+        if (
+          changeBuffer.length === seq.length &&
+          changeBuffer.every((val, idx) => val === seq[idx])
+        ) {
           totalBananas += prices[i];
           break;
         }
@@ -93,7 +100,9 @@ const findSequence = (priceArrays: number[][], possibleSequences: Set<string>): 
     });
 
     if (totalBananas > maxBananas) {
-      console.info(`Found new best sequence: ${sequenceString}, ${totalBananas}`);
+      console.info(
+        `Found new best sequence: ${sequenceString}, ${totalBananas}`,
+      );
       maxBananas = totalBananas;
       bestSequence = seq;
     }
@@ -119,22 +128,22 @@ run({
 100
 2024
         `,
-        expected: (8685429 + 4700978 + 15273692 +8667524).toString(),
+        expected: (8685429 + 4700978 + 15273692 + 8667524).toString(),
       },
     ],
     solution: part1,
   },
   part2: {
     tests: [
-//       {
-//         input: `
-// 1
-// 2
-// 3
-// 2024
-//         `,
-//         expected: 23,
-//       },
+      //       {
+      //         input: `
+      // 1
+      // 2
+      // 3
+      // 2024
+      //         `,
+      //         expected: 23,
+      //       },
     ],
     solution: part2,
   },

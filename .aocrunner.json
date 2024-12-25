@@ -355,7 +355,7 @@
         "solved": true,
         "result": "58367545758258",
         "attempts": [],
-        "time": 1.2915
+        "time": 1.858
       },
       "part2": {
         "solved": true,
@@ -363,18 +363,18 @@
         "attempts": [
           "z01,z02,z03,z06,z07,z08,z09,z11,z14,z15,z17,z18,z19,z21,z22,z23,z24,z25,z26,z28,z29,z31,z32,z33,z37,z41,z43,z44,z45"
         ],
-        "time": 1.4052
+        "time": 1.8547
       }
     },
     {
       "part1": {
-        "solved": false,
-        "result": null,
+        "solved": true,
+        "result": "2586",
         "attempts": [],
-        "time": null
+        "time": 7.8773
       },
       "part2": {
-        "solved": false,
+        "solved": true,
         "result": null,
         "attempts": [],
         "time": null
